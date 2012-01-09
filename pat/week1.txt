@@ -1,0 +1,12 @@
+mercurial:
+ 1. clones the remote repository to a local repository on disk
+ 2. add
+ 3. `commit` commits the changes to your local repository
+    `push` pushes the commits to the remote repository
+
+logic programming:
+ 1. Logic programming is good at reaching conclusions from given data and rules.
+ 	It is worse at creating procedural programs, like a text editor or a web
+ 	browser or a game.
+ 2. Prolog
+ 3. None that I can think of.
