@@ -1,7 +1,6 @@
 import scala.math
 
 object Fibbonacci {
-
   def fibbonacci(n: Int): Int = {
     val v = ((math.pow(1 + math.pow(5, .5), n) -
         math.pow(1 - math.pow(5, .5), n)) / 
