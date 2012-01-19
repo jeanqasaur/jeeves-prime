@@ -1,0 +1,6 @@
+1 to allow easier privacy policy declaration
+2 it allows the programer to avoid constant checks to prevent sensitive data from leaking out by declaring privacy policies for variables
+3 it stores sensitive data as symbolic expression
+4 for someone wanting to write a privacy oriented program that would prevent users from gaining access to sensitive information
+5 ease of use
+6 learning its practical application (social networking)
