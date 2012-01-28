@@ -1,9 +1,7 @@
 package cap.jeeves.socialnet
 
-import cap.scalasmt._
 import cap.jeeves._
-
-import scala.collection.mutable.Map
+import java.util.Map
 
 object SocialNetBackend extends JeevesLib {
   class UnimplementedError extends Exception
