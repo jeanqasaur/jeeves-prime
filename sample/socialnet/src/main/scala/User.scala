@@ -36,7 +36,10 @@ case class User (
   /* Policies */
   private val isSelf: Formula =
     CONTEXT.viewer === this
+  private val sameNetwork: Formula =
+    CONTEXT.viewer.getNetwork() === getNetwork()
   policy(_privateL, isSelf, LOW)
+  policy(_friendL, sameNetwork, LOW)
 
   /* Getters */
   def getName(): Symbolic = mkSensitive(_friendL, _name, Name("Anonymous"))
