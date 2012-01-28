@@ -5,5 +5,6 @@ package cap.jeeves.socialnet
  */
 
 import SocialNetBackend._
+import cap.scalasmt.Formula
 
 case class SocialNetContext ( val viewer: User ) extends JeevesRecord
