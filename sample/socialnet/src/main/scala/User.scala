@@ -4,6 +4,7 @@ package cap.jeeves.socialnet
  * User records for jconf case study.
  */
 
+import cap.scalasmt._
 import SocialNetBackend._
 
 case class Name (name: String) extends JeevesRecord
@@ -28,5 +29,35 @@ case class User (
   , private val _birthday: Birthday
   , private val _network: Network
   ) extends JeevesRecord {
-  /* Define getters and setters here. */
+  /* Variables */
+  private var _friendL = mkLevel()
+  private var _privateL = mkLevel()
+  
+  /* Policies */
+  private val isSelf: Formula =
+    CONTEXT.viewer === this
+  policy(_privateL, isSelf, LOW)
+
+  /* Getters */
+  def getName(): Symbolic = mkSensitive(_friendL, _name, Name("Anonymous"))
+  def showName(ctxt: SocialNetContext): String =
+    (concretize(ctxt, getName())).asInstanceOf[Name].name
+  
+  def getPwd(): Symbolic = mkSensitive(_privateL, _pwd, Password("****"))
+  def showPwd(ctxt: SocialNetContext): String =
+    (concretize(ctxt, getPwd())).asInstanceOf[Password].pwd
+  
+  def getEmail(): Symbolic = mkSensitive(_friendL, _email, Name("...."))
+  def showEmail(ctxt: SocialNetContext): String =
+    (concretize(ctxt, getEmail())).asInstanceOf[Email].email
+  
+  def getBirthday(): Symbolic = mkSensitive(_friendL, _birthday, Name("--/--/----"))
+  def showBirthday(ctxt: SocialNetContext): String = {
+    val day = (concretize(ctxt, getBirthday())).asInstanceOf[Birthday]
+    day.month + "/" + day.day + "/" + day.year
+  }
+  
+  def getNetwork(): Symbolic = mkSensitive(_friendL, _network, Network("No permission"))
+  def showNetwork(ctxt: SocialNetContext): String =
+    (concretize(ctxt, getNetwork())).asInstanceOf[Network].name
 }
