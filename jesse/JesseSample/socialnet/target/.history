@@ -1,0 +1,10 @@
+sbt update
+update
+compile
+compile-test
+cd ..
+exit
+build
+sbt build
+help
+exit
