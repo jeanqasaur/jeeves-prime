@@ -9,11 +9,14 @@ import org.scalatest.FunSuite
 import org.scalatest.Assertions.{expect}
 
 class TestUser extends FunSuite {
-  /*
-  test ("[test name]") {
-    expect([value you expect]) {
-      [code that should produce that value]
-    }
+  
+    val user1 = User(Username(""),Name(""),Password(""),Email(""),Birthday(1,1,1),Network(""))
+    user1.setPassword("Password")
+    
+    test ("SelfPassword") {
+    expect("") {
+ //    user1.showPassword(SocialNetContext(user1))   
+      ""
+   }
   }
-  */
 }

@@ -7,7 +7,7 @@ package cap.jeeves.socialnet
 import SocialNetBackend._
 import cap.scalasmt._
 
-case class Username (name: String) extends JeevesRecord
+case class Username (username: String) extends JeevesRecord
 case class Name (name: String) extends JeevesRecord
 case class Password (val pwd: String) extends JeevesRecord
 case class Email (val email: String) extends JeevesRecord
@@ -20,10 +20,11 @@ object February extends UserStatus
 */
 case class Birthday (val month: Int, val day: Int, val year: Int)
   extends JeevesRecord
-case class Network (val name: String) extends JeevesRecord
+case class Network (val network: String) extends JeevesRecord
+
 
 case class User (
-    val username: Username = Username("-")
+    val username: Username = Username("")
   , private val _name: Name
   , private val _pwd: Password
   , private val _email: Email
@@ -33,9 +34,6 @@ case class User (
   
   private val self: Formula = (CONTEXT.viewer.username === this.username);
   private val network: Formula = (CONTEXT.viewer._network === this._network);
-
-//  private val isSameNetwork: Formula =
-//    CONTEXT.viewer.status === ReviewerStatus
     
     
     private val selfL = mkLevel ();
@@ -46,30 +44,35 @@ case class User (
       
     private val sameNetworkL = mkLevel ();
     policy (sameNetworkL, !network, LOW);
-         
-
-  /* Define getters and setters here. */
-
-  /* Getters */
     
+   /* Setters */
+    def setUsername (p: String) = username
+    def setName (p: String) = _name
+    def setPassword (p: String) = _pwd
+    def setEmail (p: String) = _email
+    def setBirthday (p: Int, q: Int, r: Int) = _birthday
+    def setNetwork (p: String) = _network
+    
+   /* Getters */
     def getUsername (): Symbolic = mkSensitive(publicL, username, Username("--"))
     def getName (): Symbolic = mkSensitive(publicL, _name, Name("--"))
     def getPassword (): Symbolic = mkSensitive(selfL, _pwd, Password("--"))
     def getEmail (): Symbolic = mkSensitive(sameNetworkL, _email, Email("--"))
-    def getBirthday (): Symbolic = mkSensitive(publicL, _birthday, Birthday(4,18,1996))
+    def getBirthday (): Symbolic = mkSensitive(publicL, _birthday, Birthday(0,0,0))
     def getNetwork (): Symbolic = mkSensitive(publicL, _network, Network("--"))
-    
-  /* Setters */
-    
-    //def setName (n: Name): Unit = {
-   //   _name = n
-   // }
-   // def showName (ctxt: ConfContext): String = {
-   //   concretize(ctxt, getName ()).asInstanceOf[Name].name
-   // }
-    
-    
    
-  /* Concretize */
+    /* Concretize */
+      def showUsername(ctxt: SocialNetContext): String =
+    (concretize(ctxt, getUsername())).asInstanceOf[Username].username
+      def showName(ctxt: SocialNetContext): String =
+    (concretize(ctxt, getName())).asInstanceOf[Name].name
+      def showPassword(ctxt: SocialNetContext): String =
+    (concretize(ctxt, getPassword())).asInstanceOf[Password].pwd
+      def showEmail(ctxt: SocialNetContext): String =
+    (concretize(ctxt, getEmail())).asInstanceOf[Email].email
+   //   def showBirthday(ctxt: SocialNetContext): String = 
+  //  (concretize(ctxt, getBirthday())).asInstanceOf[Birthday]      
+      def showNetwork(ctxt: SocialNetContext): String =
+    (concretize(ctxt, getNetwork())).asInstanceOf[Network].network
 
 }
