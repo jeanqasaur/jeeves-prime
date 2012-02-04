@@ -1,5 +1,5 @@
 #External Dependencies
-#Sat Jan 28 09:52:14 EST 2012
-C\:\\Users\\Pat\\Dropbox\\workspace\\jeeves-prime\\sample\\socialnet\\project\\boot\\scala-2.7.7\\lib\\scala-library.jar=SocialNet.scala
-C\:\\Program\ Files\\Java\\jre7\\lib\\rt.jar=SocialNet.scala
-C\:\\Users\\Pat\\Dropbox\\workspace\\jeeves-prime\\sample\\socialnet\\project\\boot\\scala-2.7.7\\org.scala-tools.sbt\\sbt\\0.7.7\\sbt_2.7.7-0.7.7.jar=SocialNet.scala
+#Sat Feb 04 00:14:28 EST 2012
+C\:\\Program\ Files\\Java\\jre6\\lib\\rt.jar=SocialNet.scala
+C\:\\Users\\Jesse\\Desktop\\jeeves-prime\\sample\\socialnet\\project\\boot\\scala-2.7.7\\org.scala-tools.sbt\\sbt\\0.7.7\\sbt_2.7.7-0.7.7.jar=SocialNet.scala
+C\:\\Users\\Jesse\\Desktop\\jeeves-prime\\sample\\socialnet\\project\\boot\\scala-2.7.7\\lib\\scala-library.jar=SocialNet.scala
