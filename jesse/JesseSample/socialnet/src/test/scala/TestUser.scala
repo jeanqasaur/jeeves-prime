@@ -11,12 +11,12 @@ import org.scalatest.Assertions.{expect}
 class TestUser extends FunSuite {
   
     val user1 = User(Username(""),Name(""),Password(""),Email(""),Birthday(1,1,1),Network(""))
-    user1.setPassword("Password")
+    user1.setPassword(Password("Password"))
     
     test ("SelfPassword") {
-    expect("") {
- //    user1.showPassword(SocialNetContext(user1))   
-      ""
+    expect("Password") {
+     user1.showPassword(SocialNetContext(user1))   
+    // ""
    }
   }
 }
