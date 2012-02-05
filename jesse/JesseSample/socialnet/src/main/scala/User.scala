@@ -24,12 +24,12 @@ case class Network (val network: String) extends JeevesRecord
 
 
 case class User (
-    val username: Username = Username("")
-  , private val _name: Name
-  , private val _pwd: Password
-  , private val _email: Email
-  , private val _birthday: Birthday
-  , private val _network: Network
+    var username: Username = Username("")
+  , private var _name: Name
+  , private var _pwd: Password
+  , private var _email: Email
+  , private var _birthday: Birthday
+  , private var _network: Network
   ) extends JeevesRecord {
   
   private val self: Formula = (CONTEXT.viewer.username === this.username);
@@ -46,12 +46,12 @@ case class User (
     policy (sameNetworkL, !network, LOW);
     
    /* Setters */
-    def setUsername (p: String) = username
-    def setName (p: String) = _name
-    def setPassword (p: String) = _pwd
-    def setEmail (p: String) = _email
-    def setBirthday (p: Int, q: Int, r: Int) = _birthday
-    def setNetwork (p: String) = _network
+    def setUsername (p: Username) = username = p
+    def setName (p: Name) = _name = p
+    def setPassword (p: Password) = _pwd = p
+    def setEmail (p: Email) = _email = p
+    def setBirthday (p: Birthday) = _birthday = p
+    def setNetwork (p: Network) = _network = p
     
    /* Getters */
     def getUsername (): Symbolic = mkSensitive(publicL, username, Username("--"))
@@ -71,7 +71,7 @@ case class User (
       def showEmail(ctxt: SocialNetContext): String =
     (concretize(ctxt, getEmail())).asInstanceOf[Email].email
    //   def showBirthday(ctxt: SocialNetContext): String = 
-  //  (concretize(ctxt, getBirthday())).asInstanceOf[Birthday]      
+  //  (concretize(ctxt, getBirthday())).asInstanceOf[Birthday].birthday     
       def showNetwork(ctxt: SocialNetContext): String =
     (concretize(ctxt, getNetwork())).asInstanceOf[Network].network
 

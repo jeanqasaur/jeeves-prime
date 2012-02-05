@@ -1,5 +1,5 @@
 #Source Hashes
-#Sat Feb 04 03:23:44 EST 2012
+#Sun Feb 05 10:23:04 EST 2012
 src\\main\\scala\\SocialNetContext.scala=0585ecdb663db5081e8db30f0df5037e94d15709
 src\\main\\scala\\SocialNetBackend.scala=94c53425f7abf30488e077527f2b653b41c65758
-src\\main\\scala\\User.scala=4c289e74f915b7cb6fcfc1762db3a8687a9d701b
+src\\main\\scala\\User.scala=902e0daff1ec94a6a64840521c6442ccd784d4ca
