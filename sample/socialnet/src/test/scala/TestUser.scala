@@ -1,9 +1,6 @@
-package test.cap.jeeves.socialnet
+package test.cap.jeeves.pat
 
-import cap.scalasmt._
-import cap.jeeves._
-import cap.jeeves.socialnet._
-import SocialNetBackend._
+import cap.jeeves.pat._
 
 import org.scalatest.FunSuite
 import org.scalatest.Assertions.{expect}
@@ -16,18 +13,18 @@ class TestUser extends FunSuite {
     }
   }
   */
-  val userOne = User("one", Name("one"), Password("one"), Email("one@example.com"),
+  val userOne = User(Username("one"), Name("one"), Password("one"), Email("one@example.com"),
                      Birthday(1, 1, 1), Network("one"))
-  val userTwo = User("two", Name("two"), Password("two"), Email("two@example.com"),
+  val userTwo = User(Username("two"), Name("two"), Password("two"), Email("two@example.com"),
                      Birthday(2, 2, 2), Network("two"))
-  val userTen = User("ten", Name("ten"), Password("ten"), Email("ten@example.com"),
-                     Birthday(10, 10, 10), Network("two"))
+  val userTen = User(Username("ten"), Name("ten"), Password("ten"), Email("ten@example.com"),
+                     Birthday(10, 10, 10), Network("one"))
   test("Test Email Visibility") {
     expect("....") {
       userOne.showEmail(SocialNetContext(userTwo))
     }
-    expect("ten@example.com") {
-      userTen.showEmail(SocialNetContext(userOne))
+    expect("one@example.com") {
+      userOne.showEmail(SocialNetContext(userOne))
     }
   }
 }

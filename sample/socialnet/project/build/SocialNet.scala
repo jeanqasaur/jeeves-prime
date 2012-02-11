@@ -1,7 +1,7 @@
 import sbt._
 
 class JConf(info: ProjectInfo) extends DefaultWebProject(info) {
-  System.setProperty("smt.home", "/opt/z3/bin/z3")
+  System.setProperty("smt.home", "C:\\Program Files (x86)\\Microsoft Research\\Z3-2.18\\bin\\z3")
 
   val scalatest = "org.scalatest" % "scalatest_2.9.0" % "1.6.1.RC1" % "test"
 

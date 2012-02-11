@@ -1,4 +1,4 @@
-package cap.jeeves.socialnet
+package cap.jeeves.pat
 
 /*
  * User records for jconf case study.
