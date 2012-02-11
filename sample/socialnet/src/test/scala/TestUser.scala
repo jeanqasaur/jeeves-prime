@@ -19,6 +19,11 @@ class TestUser extends FunSuite {
                      Birthday(2, 2, 2), Network("two"))
   val userTen = User(Username("ten"), Name("ten"), Password("ten"), Email("ten@example.com"),
                      Birthday(10, 10, 10), Network("one"))
+  test("User Name Visibility") {
+    expect("one") {
+      userOne.showUsername(SocialNetContext(userTen))
+    }
+  }
   test("Test Email Visibility") {
     expect("....") {
       userOne.showEmail(SocialNetContext(userTwo))

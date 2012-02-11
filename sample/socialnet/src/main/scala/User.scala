@@ -49,7 +49,7 @@ case class User (
   private val isSelf: Formula =
     CONTEXT.viewer.username === this.username
   private val sameNetwork: Formula =
-    CONTEXT.viewer._network === this._network
+    CONTEXT.viewer.getNetwork() === getNetwork()
   private val isFriend: Formula =
     friends contains CONTEXT.viewer
 
