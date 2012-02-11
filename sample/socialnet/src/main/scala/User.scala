@@ -47,9 +47,9 @@ case class User (
 
   /* Levels */
   private val isSelf: Formula =
-    CONTEXT.viewer.username === this.username
+    CONTEXT.viewer.username === username
   private val sameNetwork: Formula =
-    CONTEXT.viewer.getNetwork() === getNetwork()
+    CONTEXT.viewer._network === _network
   private val isFriend: Formula =
     friends contains CONTEXT.viewer
 
@@ -58,6 +58,9 @@ case class User (
   policy(_friendL, !(isFriend || isSelf), LOW)
   policy(_privateL, !isSelf, LOW)
   policy(_publicL, false, LOW)
+
+  def showSelf(ctxt: SocialNetContext): Boolean =
+    (concretize(ctxt, isSelf)).asInstanceOf[Boolean]
 
   /* Getters */
   def getUsername(): Symbolic = mkSensitive(_publicL, username, username)
