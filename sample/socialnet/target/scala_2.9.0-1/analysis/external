@@ -1,5 +1,5 @@
 #External Dependencies
-#Sat Feb 11 14:29:18 EST 2012
+#Sat Feb 11 14:50:19 EST 2012
 C\:\\Users\\Pat\\Dropbox\\workspace\\jeeves-prime\\sample\\socialnet\\lib\\scalasmt_2.9.0-1-1.0.jar=src\\main\\scala\\SocialNetContext.scala;src\\main\\scala\\User.scala;src\\main\\scala\\SocialNetBackend.scala
 C\:\\Users\\Pat\\Dropbox\\workspace\\jeeves-prime\\sample\\socialnet\\project\\boot\\scala-2.9.0-1\\lib\\scala-library.jar=src\\main\\scala\\SocialNetContext.scala;src\\main\\scala\\User.scala;src\\main\\scala\\SocialNetBackend.scala
 C\:\\Program\ Files\\Java\\jre7\\lib\\rt.jar=src\\main\\scala\\SocialNetContext.scala;src\\main\\scala\\User.scala;src\\main\\scala\\SocialNetBackend.scala
