@@ -1,0 +1,22 @@
+Mercurial
+1.  What the command hg clone do?
+Hg clone makes a copy of an existing repository (on disk).
+
+2.  What is the command for adding a file to be tracked by Mercurial?
+Hg add.
+
+3.  What is the difference between the commands commit and push?
+Hg commit adds changes locally, but hg push sends them to the server.
+
+Logic Programming
+
+1.  What are some advantages of using logic programming?  (What kinds of problems might logic programs be useful for solving?)  Disadvantages?
+Programming errors are found during compile time in logic programming languages.  Because of this, more information about the problem can be obtained.
+Some disadvantages of logic programming languages are slowness of program execution and complexity of programs.
+Logic programming languages are better to solve non-numeric problems, as their execution speed is slower than that of other types of languages.
+
+2.  What are examples of logic languages?
+Planner, Golux, Prolog, ALF, Fril, Godel, Mercury, Oz, Ciao, Visual Prolog, XSB, and LambdaProlog.
+
+3.  What questions do you have about logic programming?
+I don't have any questions.

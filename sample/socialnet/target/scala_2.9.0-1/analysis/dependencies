@@ -1,0 +1,5 @@
+#Source Dependencies
+#Fri Jan 27 18:02:37 EST 2012
+src\\main\\scala\\SocialNetContext.scala=
+src\\main\\scala\\SocialNetBackend.scala=src\\main\\scala\\SocialNetContext.scala;src\\main\\scala\\User.scala
+src\\main\\scala\\User.scala=src\\main\\scala\\SocialNetContext.scala;src\\main\\scala\\SocialNetBackend.scala
