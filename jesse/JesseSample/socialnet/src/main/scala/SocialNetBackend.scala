@@ -12,13 +12,16 @@ object SocialNetBackend extends JeevesLib {
   def getUser(username: String): User = {
     users.getOrElse(username, null)
   }
-
-  def searchByNetwork(network: String): List[User] = {
-    throw  new UnimplementedError
-   // val it: Iterator[User] = users.iterator[]
-   // val it: Iterator[User] = users.valuesIterator
-  // val a: List[User]
-  // a
-   //    users.filter((name: String, user: User) => 1==1)
+  
+  def addUser(un: String, uo: User) = {
+    users += un -> uo
+  }
+ 
+  def searchByNetwork(network: String, uo: User): List[User] = {
+    val ResultMap = users.filter(p => p._2.showNetwork(SocialNetContext(uo)) == network)
+    var list = List[User]()
+	ResultMap foreach {case(key,value) => list = value :: list}
+    //println(list)
+    list
   }
 }

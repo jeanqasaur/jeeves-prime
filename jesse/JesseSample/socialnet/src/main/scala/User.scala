@@ -24,7 +24,8 @@ case class Network (val network: String) extends JeevesRecord
 
 
 case class User (
-    var username: Username = Username("")
+    //    var username: Username = Username("")
+    var username: Username
   , private var _name: Name
   , private var _pwd: Password
   , private var _email: Email
@@ -33,7 +34,7 @@ case class User (
   ) extends JeevesRecord {
   
   private val self: Formula = (CONTEXT.viewer.username === this.username);
-  private val network: Formula = (CONTEXT.viewer._network === this._network);
+  private val nw: Formula = (CONTEXT.viewer._network === this._network);
     
     
     private val selfL = mkLevel ();
@@ -43,7 +44,7 @@ case class User (
     policy (publicL, false, LOW);
       
     private val sameNetworkL = mkLevel ();
-    policy (sameNetworkL, !network, LOW);
+    policy (sameNetworkL, !nw, LOW);
     
    /* Setters */
     def setUsername (p: Username) = username = p
@@ -59,7 +60,7 @@ case class User (
     def getPassword (): Symbolic = mkSensitive(selfL, _pwd, Password("--"))
     def getEmail (): Symbolic = mkSensitive(sameNetworkL, _email, Email("--"))
     def getBirthday (): Symbolic = mkSensitive(publicL, _birthday, Birthday(0,0,0))
-    def getNetwork (): Symbolic = mkSensitive(publicL, _network, Network("--"))
+    def getNetwork (): Symbolic = mkSensitive(sameNetworkL, _network, Network("--"))
    
     /* Concretize */
       def showUsername(ctxt: SocialNetContext): String =
@@ -70,8 +71,12 @@ case class User (
     (concretize(ctxt, getPassword())).asInstanceOf[Password].pwd
       def showEmail(ctxt: SocialNetContext): String =
     (concretize(ctxt, getEmail())).asInstanceOf[Email].email
-   //   def showBirthday(ctxt: SocialNetContext): String = 
-  //  (concretize(ctxt, getBirthday())).asInstanceOf[Birthday].birthday     
+    
+      def showBirthday(ctxt: SocialNetContext): String = {
+       val b = (concretize(ctxt, getBirthday())).asInstanceOf[Birthday]
+       b.month + b.day + b.year + ""
+      }
+    
       def showNetwork(ctxt: SocialNetContext): String =
     (concretize(ctxt, getNetwork())).asInstanceOf[Network].network
 

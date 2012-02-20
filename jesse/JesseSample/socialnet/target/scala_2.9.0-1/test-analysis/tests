@@ -1,4 +1,4 @@
 #Tests
-#Sun Feb 05 10:23:04 EST 2012
+#Mon Feb 20 11:58:01 EST 2012
 src\\test\\scala\\TestUser.scala=test.cap.jeeves.socialnet.TestUser<<org.scalatest.Suite
 src\\test\\scala\\TestSocialNetBackend.scala=test.cap.jeeves.socialnet.TestSocialNetBackend<<org.scalatest.Suite

@@ -1,4 +1,4 @@
 #Generated Classes
-#Sun Feb 05 10:23:04 EST 2012
-src\\test\\scala\\TestUser.scala=target\\scala_2.9.0-1\\test-classes\\test\\cap\\jeeves\\socialnet\\TestUser.class;target\\scala_2.9.0-1\\test-classes\\test\\cap\\jeeves\\socialnet\\TestUser$$anonfun$1.class
+#Mon Feb 20 11:58:01 EST 2012
+src\\test\\scala\\TestUser.scala=target\\scala_2.9.0-1\\test-classes\\test\\cap\\jeeves\\socialnet\\TestUser$$anonfun$2.class;target\\scala_2.9.0-1\\test-classes\\test\\cap\\jeeves\\socialnet\\TestUser.class;target\\scala_2.9.0-1\\test-classes\\test\\cap\\jeeves\\socialnet\\TestUser$$anonfun$4.class;target\\scala_2.9.0-1\\test-classes\\test\\cap\\jeeves\\socialnet\\TestUser$$anonfun$3.class;target\\scala_2.9.0-1\\test-classes\\test\\cap\\jeeves\\socialnet\\TestUser$$anonfun$5.class;target\\scala_2.9.0-1\\test-classes\\test\\cap\\jeeves\\socialnet\\TestUser$$anonfun$6.class;target\\scala_2.9.0-1\\test-classes\\test\\cap\\jeeves\\socialnet\\TestUser$$anonfun$1.class
 src\\test\\scala\\TestSocialNetBackend.scala=target\\scala_2.9.0-1\\test-classes\\test\\cap\\jeeves\\socialnet\\TestSocialNetBackend.class
