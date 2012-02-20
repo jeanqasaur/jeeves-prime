@@ -22,15 +22,16 @@ case class Birthday (val month: Int, val day: Int, val year: Int)
   extends JeevesRecord
 case class Network (val network: String) extends JeevesRecord
 
+//case class Friends (val friendslist: List[String])
 
 case class User (
-    //    var username: Username = Username("")
     var username: Username
   , private var _name: Name
   , private var _pwd: Password
   , private var _email: Email
   , private var _birthday: Birthday
   , private var _network: Network
+  , private var _friends: List[String]
   ) extends JeevesRecord {
   
   private val self: Formula = (CONTEXT.viewer.username === this.username);
@@ -53,6 +54,8 @@ case class User (
     def setEmail (p: Email) = _email = p
     def setBirthday (p: Birthday) = _birthday = p
     def setNetwork (p: Network) = _network = p
+        
+    def setFriends (p: List[String]) = _friends = p
     
    /* Getters */
     def getUsername (): Symbolic = mkSensitive(publicL, username, Username("--"))
@@ -61,7 +64,9 @@ case class User (
     def getEmail (): Symbolic = mkSensitive(sameNetworkL, _email, Email("--"))
     def getBirthday (): Symbolic = mkSensitive(publicL, _birthday, Birthday(0,0,0))
     def getNetwork (): Symbolic = mkSensitive(sameNetworkL, _network, Network("--"))
-   
+    
+    def getFriends (): List[String] = _friends
+       
     /* Concretize */
       def showUsername(ctxt: SocialNetContext): String =
     (concretize(ctxt, getUsername())).asInstanceOf[Username].username
