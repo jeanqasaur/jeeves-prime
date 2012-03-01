@@ -1,4 +1,4 @@
-package cap.jeeves.socialnet
+package cap.jeeves.pat
 
 /*
  * User records for jconf case study.
@@ -20,29 +20,54 @@ object February extends UserStatus
 case class Birthday (val month: Int, val day: Int, val year: Int)
   extends JeevesRecord
 case class Network (val name: String) extends JeevesRecord
+case class Username (val username: String) extends JeevesRecord
+
+object Random {
+  val defaultFriend: User = new User(Username(""), Name(""), Password(""), Email(""),
+                                    Birthday(0, 0, 0), Network(""))
+}
 
 case class User (
-    val username: String
+    val username: Username
   , private val _name: Name
   , private val _pwd: Password
   , private val _email: Email
   , private val _birthday: Birthday
   , private val _network: Network
   ) extends JeevesRecord {
-  /* Variables */
-  private var _friendL = mkLevel()
-  private var _privateL = mkLevel()
   
-  /* Policies */
+  def init() {}
+
+  /* Variables */
+  private val _friendL = mkLevel()
+  private val _networkL = mkLevel()
+  private val _privateL = mkLevel()
+  private val _publicL = mkLevel()
+  private var friends: List[User] = List[User]()
+
+  /* Levels */
   private val isSelf: Formula =
-    CONTEXT.viewer === this
+    CONTEXT.viewer.username === username
   private val sameNetwork: Formula =
-    CONTEXT.viewer.getNetwork() === getNetwork()
-  policy(_privateL, isSelf, LOW)
-  policy(_friendL, sameNetwork, LOW)
+    CONTEXT.viewer._network === _network
+  private val isFriend: Formula =
+    friends contains CONTEXT.viewer
+
+  /* Policies */
+  policy(_networkL, !(sameNetwork || isFriend || isSelf), LOW)
+  policy(_friendL, !(isFriend || isSelf), LOW)
+  policy(_privateL, !isSelf, LOW)
+  policy(_publicL, false, LOW)
+
+  def showSelf(ctxt: SocialNetContext): Boolean =
+    (concretize(ctxt, isSelf)).asInstanceOf[Boolean]
 
   /* Getters */
-  def getName(): Symbolic = mkSensitive(_friendL, _name, Name("Anonymous"))
+  def getUsername(): Symbolic = mkSensitive(_publicL, username, username)
+  def showUsername(ctxt: SocialNetContext): String =
+    (concretize(ctxt, getUsername())).asInstanceOf[Username].username
+
+  def getName(): Symbolic = mkSensitive(_networkL, _name, Name("Anonymous"))
   def showName(ctxt: SocialNetContext): String =
     (concretize(ctxt, getName())).asInstanceOf[Name].name
   
@@ -50,17 +75,29 @@ case class User (
   def showPwd(ctxt: SocialNetContext): String =
     (concretize(ctxt, getPwd())).asInstanceOf[Password].pwd
   
-  def getEmail(): Symbolic = mkSensitive(_friendL, _email, Name("...."))
+  def getEmail(): Symbolic = mkSensitive(_networkL, _email, Email("...."))
   def showEmail(ctxt: SocialNetContext): String =
     (concretize(ctxt, getEmail())).asInstanceOf[Email].email
   
-  def getBirthday(): Symbolic = mkSensitive(_friendL, _birthday, Name("--/--/----"))
+  def getBirthday(): Symbolic = mkSensitive(_networkL, _birthday, Birthday(0, 0, 0))
   def showBirthday(ctxt: SocialNetContext): String = {
     val day = (concretize(ctxt, getBirthday())).asInstanceOf[Birthday]
     day.month + "/" + day.day + "/" + day.year
   }
   
-  def getNetwork(): Symbolic = mkSensitive(_friendL, _network, Network("No permission"))
+  def getNetwork(): Symbolic = mkSensitive(_networkL, _network, Network("No permission"))
   def showNetwork(ctxt: SocialNetContext): String =
     (concretize(ctxt, getNetwork())).asInstanceOf[Network].name
+  
+  def getFriends(): List[Symbolic] = {
+    friends.map((friend: User) => mkSensitive(_friendL, friend, Random.defaultFriend))
+  }
+  def showFriends(ctxt: SocialNetContext): List[User] =
+    (getFriends()).map((friend: Symbolic) => concretize(ctxt, friend).asInstanceOf[User])
+
+  /* Mutators */
+  def addFriend(friend: User) {
+    if(!(friends contains friend)) friends ::= friend
+  }
+
 }
