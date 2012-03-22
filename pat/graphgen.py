@@ -130,18 +130,18 @@ def genGraph(nodes, neighbors, p):
 	G = None
 	try:
 		G = nx.newman_watts_strogatz_graph(nodes, neighbors, p)
+		return G
 	except Exception as e:
 		print e
-		return
-	for i in range(nodes):
-		G.node[i]["name"] = num2eng(i).replace(" ", "").replace(",", "")
-		G.node[i]["username"] = num2eng(i).replace(" ", "").replace(",", "")
-		G.node[i]["email"] = G.node[i]["name"] + "@gmail.cad"
-		G.node[i]["age"] = i % 50 + int(random.random() * 20) + 18
-		G.node[i]["network"] = num2eng(i % 10)
-		G.node[i]["password"] = num2eng(i).replace(" ", "").replace(",", "")
-		G.node[i]["birthday"] = str(i % 12 + 1) + "/" + str(i % 31 + 1) + "/" + str(i % 1000 + 1950)
-	return G
+	return None
+	# for i in range(nodes):
+		# G.node[i]["name"] = num2eng(i).replace(" ", "").replace(",", "")
+		# G.node[i]["username"] = num2eng(i).replace(" ", "").replace(",", "")
+		# G.node[i]["email"] = G.node[i]["name"] + "@gmail.cad"
+		# G.node[i]["age"] = i % 50 + int(random.random() * 20) + 18
+		# G.node[i]["network"] = num2eng(i % 10)
+		# G.node[i]["password"] = num2eng(i).replace(" ", "").replace(",", "")
+		# G.node[i]["birthday"] = str(i % 12 + 1) + "/" + str(i % 31 + 1) + "/" + str(i % 1000 + 1950)
 
 def printGraph(G, f):
 	for i in range(G.number_of_nodes()):
@@ -150,11 +150,12 @@ def printGraph(G, f):
 		f.write("  neighbors:\n")
 		for neighbor in n:
 			f.write("    - " + str(neighbor) + "\n")
-		for t in ["name", "username", "email", "age", "network", "password", "birthday"]:
-			f.write("  " + t +": " + str(G.node[i][t]) + "\n")
+		#for t in ["name", "username", "email", "age", "network", "password", "birthday"]:
+		#	f.write("  " + t +": " + str(G.node[i][t]) + "\n")
 	f.close()
+	
 try:
-	printGraph(genGraph(10000, 150, 0.5), open("test.stor.yml", "w"))
+	printGraph(genGraph(100000, 300, 0.5), open("test.stor.yml", "w"))
 except Exception as e:
 	print e
 	raw_input()
