@@ -5,7 +5,7 @@ import cap.primes._
 import org.scalatest.FunSuite
 import org.scalatest.Assertions.{expect}
 
-class TestUser extends FunSuite {
+class TestUpdate extends FunSuite {
 	/*
 	test ("[test name]") {
 		expect([value you expect]) {
