@@ -20,6 +20,8 @@ class SocialNetBackend extends JeevesLib {
 	def searchByNetwork(network: String): List[User] = {
 		_users.filter(_.getNetwork() == Network(network))
 	}
+	
+	def addLink(
 }
 
 object SocialNetBackend extends SocialNetBackend()
