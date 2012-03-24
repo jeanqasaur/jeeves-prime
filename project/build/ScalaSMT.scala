@@ -6,7 +6,6 @@ class ScalaSMT(info: ProjectInfo) extends DefaultProject(info) {
       Unchecked ::
       Deprecation ::
       super.compileOptions.toList
-  addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.0.0")
   libraryDependencies ++= Seq(
     "org.squeryl" %% "squeryl" % "0.9.5-RC1",
     "postgresql" % "postgresql" % "8.4-701.jdbc4")

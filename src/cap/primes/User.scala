@@ -10,6 +10,7 @@ case class Username(val username: String) extends JeevesRecord
 
 object Default {
 	val defaultFriend: User = new User(Username(""), Name(""), Network(""))
+	val defaultContext: SocialNetContext = new SocialNetContext(defaultFriend)
 }
 
 case class User(
@@ -22,6 +23,7 @@ case class User(
 	private val _publicL = mkLevel()
 	private var friends: Set[Username] = Set[Username]()
 	private var followers: Set[Username] = Set[Username]()
+	private var posts: List[Update] = List[Update]()
 
 	/* Levels */
 	private val isSelf: Formula =
@@ -31,24 +33,21 @@ case class User(
 	private val isFriend: Formula =
 		friends contains CONTEXT.asInstanceOf[SocialNetContext].viewer.username
 	private val friendOfFriend: Formula =
-		!friends.intersect(CONTEXT.asInstanceOf[SocialNetContext].viewer.followers).isEmpty
+		!(friends.intersect(CONTEXT.asInstanceOf[SocialNetContext].viewer.followers).isEmpty)
 
 	/* Policies */
+	policy(_publicL, false, LOW)
 	policy(_networkL, !(sameNetwork || isFriend || isSelf), LOW)
 	policy(_friendL, !(isFriend || isSelf), LOW)
 	policy(_restrictedL, !(isFriend && sameNetwork || isSelf), LOW)
 	policy(_privateL, !isSelf, LOW)
-	policy(_publicL, false, LOW)
-
-	def showSelf(ctxt: SocialNetContext): Boolean =
-		(concretize(ctxt, isSelf)).asInstanceOf[Boolean]
-
+	
 	/* Getters */
 	def getUsername(): Symbolic = mkSensitive(_publicL, username, username)
 	def showUsername(ctxt: SocialNetContext): String =
 		username.username
 
-	def getName(): Symbolic = mkSensitive(_restrictedL, _name, Name("Anonymous"))
+	def getName(): Symbolic = mkSensitive(_networkL, _name, Name("Anonymous"))
 	def showName(ctxt: SocialNetContext): String =
 		(concretize(ctxt, getName())).asInstanceOf[Name].name
 
@@ -61,8 +60,20 @@ case class User(
 	}
 	def showFriends(ctxt: SocialNetContext): List[Username] =
 		(getFriends()).map((friend: Symbolic) => concretize(ctxt, friend).asInstanceOf[Username])
+	
 	def isFriends(user: User): Boolean = isFriends(user.username)
 	def isFriends(username: Username): Boolean = friends contains username
+	def hasFriend(usernames: Set[Username]): Boolean = !(friends.intersect(usernames).isEmpty)
+	
+	def post(msg: String) = {
+		posts = Update(msg, this) :: posts
+	}
+	
+	def tagPost(index: Int, user: Username) = {
+		posts(index).tag(user, this)
+	}
+	
+	def getPost(index: Int): Update = posts(index)
 
 	/* Mutators */
 	def addFriend(friend: User) {
