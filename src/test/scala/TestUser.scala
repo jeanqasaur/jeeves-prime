@@ -14,6 +14,13 @@ class TestUser extends FunSuite {
 		}
 	}
 	*/
+	SocialNetBackend.addUser(User(Username("User1"), Name("Name1"), Network("N1")))
+	SocialNetBackend.addUser(User(Username("User2"), Name("Name2"), Network("N1")))
+	SocialNetBackend.addUser(User(Username("User3"), Name("Name3"), Network("N2")))
+	SocialNetBackend.addUser(User(Username("User4"), Name("Name4"), Network("N1")))
+	SocialNetBackend.addUser(User(Username("User5"), Name("Name5"), Network("N2")))
+	SocialNetBackend.addLink("User1", "User2")
+	SocialNetBackend.addLink("User1", "User5")
 	val user1 = User(Username("User1"), Name("Name1"), Network("N1"))
 	val user2 = User(Username("User2"), Name("Name1"), Network("N1"))
 	val user3 = User(Username("User3"), Name("Name1"), Network("N2"))
@@ -24,27 +31,27 @@ class TestUser extends FunSuite {
 
 	test("Name - Self") {
 		expect("Name1") {
-			user1.showName(SocialNetContext(user1))
+			SocialNetBackend.get("User1").showName(SocialNetContext(SocialNetBackend.get("User1")))
 		}
 	}
 	test("Name - Friends") {
 		expect("Name1") {
-			user1.showName(SocialNetContext(user2))
+			SocialNetBackend.get("User1").showName(SocialNetContext(SocialNetBackend.get("User2")))
 		}
 	}
 	test("Name - Not Friends") {
 		expect("Anonymous") {
-			user1.showName(SocialNetContext(user3))
+			SocialNetBackend.get("User1").showName(SocialNetContext(SocialNetBackend.get("User3")))
 		}
 	}
 	test("Name - Same Network, Not Friends") {
 		expect("Name1") {
-			user1.showName(SocialNetContext(user4))
+			SocialNetBackend.get("User1").showName(SocialNetContext(SocialNetBackend.get("User4")))
 		}
 	}
 	test("Name - Different Network, Friends") {
 		expect("Name1") {
-			user1.showName(SocialNetContext(user5))
+			SocialNetBackend.get("User1").showName(SocialNetContext(SocialNetBackend.get("User5")))
 		}
 	}
 }

@@ -3,6 +3,7 @@ package cap.primes
 import cap.jeeves._
 import SocialNetBackend._
 import cap.scalasmt._
+import cap.scalasmt.Expr._
 
 case class Name(val name: String) extends JeevesRecord
 case class Network(val name: String) extends JeevesRecord
@@ -14,7 +15,7 @@ object Default {
 }
 
 case class User(
-	val username: Username, private val _name: Name, private val _network: Network) extends JeevesRecord {
+	val username: Username, private val _name: Name, val _network: Network) extends JeevesRecord {
 	/* Variables */
 	private val _friendL = mkLevel()
 	private val _networkL = mkLevel()
@@ -26,13 +27,13 @@ case class User(
 	private var posts: List[Update] = List[Update]()
 
 	/* Levels */
-	private val isSelf: Formula =
+	lazy private val isSelf: Formula =
 		CONTEXT.viewer.username === username
-	private val sameNetwork: Formula =
-		CONTEXT.viewer.getNetwork === getNetwork
-	private val isFriend: Formula =
+	lazy private val sameNetwork: Formula =
+		CONTEXT.viewer._network === _network
+	lazy private val isFriend: Formula =
 		isFriends(CONTEXT.viewer.username)
-	private val friendOfFriend: Formula = true
+	lazy private val friendOfFriend: Formula = false
 	//	!(friends.intersect(CONTEXT.viewer.followers).isEmpty)
 
 	/* Policies */
@@ -63,7 +64,7 @@ case class User(
 	
 	def isFriends(user: User): Boolean = isFriends(user.username)
 	def isFriends(username: Username): Boolean = !(friends.find((t: Username) => t == username).isEmpty)
-	def isFriends(username: Symbolic): Formula = !(friends.find((t: Username) => (username === t).eval).isEmpty)
+	def isFriends(username: Symbolic): Formula = isFriends(SocialNetBackend.getUsername(username))
 	def hasFriend(usernames: List[Username]): Boolean = !(friends.intersect(usernames).isEmpty)
 	
 	def post(msg: String) = {
@@ -71,7 +72,7 @@ case class User(
 	}
 	
 	def tagPost(index: Int, user: Username) = {
-		posts(index).tag(user, username)
+		posts(index).tag(user)
 	}
 	
 	def getPost(index: Int): Update = posts(index)

@@ -14,39 +14,39 @@ class TestUpdate extends FunSuite {
 		}
 	}
 	*/
-	val user1 = User(Username("User1"), Name("Name1"), Network("N1"))
-	val user2 = User(Username("User2"), Name("Name2"), Network("N1"))
-	val user3 = User(Username("User3"), Name("Name3"), Network("N1"))
-	val user4 = User(Username("User4"), Name("Name4"), Network("N1"))
-	val user5 = User(Username("User5"), Name("Name5"), Network("N1"))
-	user1.addFriend(user2)
-	user2.addFriend(user5)
-	val post: Update = Update(Message("msg"), user1)
-	post.tag(user3.username, user1.username)
+	SocialNetBackend.addUser(User(Username("User1"), Name("Name1"), Network("N1")))
+	SocialNetBackend.addUser(User(Username("User2"), Name("Name2"), Network("N1")))
+	SocialNetBackend.addUser(User(Username("User3"), Name("Name3"), Network("N1")))
+	SocialNetBackend.addUser(User(Username("User4"), Name("Name4"), Network("N1")))
+	SocialNetBackend.addUser(User(Username("User5"), Name("Name5"), Network("N1")))
+	SocialNetBackend.addLink("User1", "User2")
+	SocialNetBackend.addLink("User2", "User5")
+	val post: Update = Update(Message("msg"), SocialNetBackend.get("User1"))
+	post.tag(Username("User3"))
 	
 	test("Update - Self") {
 		expect("msg") {
-			post.showMessage(SocialNetContext(user1))
+			post.showMessage(SocialNetContext(SocialNetBackend.get("User1")))
 		}
 	}
 	test("Update - Friends") {
 		expect("msg") {
-			post.showMessage(SocialNetContext(user2))
+			post.showMessage(SocialNetContext(SocialNetBackend.get("User2")))
 		}
 	}
 	test("Update - Not Friends") {
 		expect("Unauthorized") {
-			post.showMessage(SocialNetContext(user3))
+			post.showMessage(SocialNetContext(SocialNetBackend.get("User3")))
 		}
 	}
 	test("Update - Tagged, Not Friends") {
 		expect("msg") {
-			post.showMessage(SocialNetContext(user4))
+			post.showMessage(SocialNetContext(SocialNetBackend.get("User4")))
 		}
 	}
 	test("Update - Not Tagged, Friends") {
 		expect("msg") {
-			post.showMessage(SocialNetContext(user5))
+			post.showMessage(SocialNetContext(SocialNetBackend.get("User5")))
 		}
 	}
 }
