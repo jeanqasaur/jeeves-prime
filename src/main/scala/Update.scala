@@ -19,10 +19,8 @@ case class Update(private val message: Message, private val author: User) extend
 	*/
 	
 	def isTagged(user: User) = tags contains user.username
-	def tag(user: Username, editor: Username) = {
-		if(author.username == editor) {
-			tags += user
-		}
+	def tag(user: Username) = {
+		tags += user
 	}
 	
 	def getMessage(): Symbolic = mkSensitive(visible, message, Message("Unauthorized"))

@@ -8,13 +8,23 @@ class SocialNetBackend extends JeevesLib {
 	class NoSuchUserException extends Exception
 
 	private var users: Map[String, User] = Map[String, User]()
+	private var _unm: Map[Symbolic, Username] = Map[Symbolic, Username]()
 	private var _users: List[User] = List[User]()
 
+	def get(username: Symbolic): User = getUser(username)
+	
+	def getUser(username: Symbolic): User = {
+		getUser(getUsername(username).username)
+	}
+	
+	def get(username: String): User = getUser(username)
+	
 	def getUser(username: String): User = {
-		_users.find((t: User) => t.getUsername() == username) match {
-			case Some(user: User) => user
-			case None => throw new NoSuchUserException
-		}
+		users.getOrElse(username, Default.defaultFriend)
+	}
+	
+	def getUsername(username: Symbolic): Username = {
+		_unm.getOrElse(username, Username(""))
 	}
 
 	def searchByNetwork(network: String): List[User] = {
@@ -22,7 +32,8 @@ class SocialNetBackend extends JeevesLib {
 	}
 	
 	def addUser(user: User) = {
-		users(user.username.username) = user
+		users += user.username.username -> user
+		_unm += user.getUsername -> user.username
 		_users = user :: _users
 	}
 	
