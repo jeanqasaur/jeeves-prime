@@ -22,7 +22,7 @@ class TestUpdate extends FunSuite {
 	SocialNetBackend.addLink("User1", "User2")
 	SocialNetBackend.addLink("User2", "User5")
 	val post: Update = Update(Message("msg"), SocialNetBackend.get("User1"))
-	post.tag(Username("User3"))
+	post.tag(Username("User2"))
 	
 	test("Update - Self") {
 		expect("msg") {
