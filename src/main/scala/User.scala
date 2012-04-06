@@ -27,13 +27,14 @@ case class User(
 	private var posts: List[Update] = List[Update]()
 
 	/* Levels */
-	lazy private val isSelf: Formula =
+	private val isSelf: Formula =
 		CONTEXT.viewer.username === username
-	lazy private val sameNetwork: Formula =
+	private val sameNetwork: Formula =
 		CONTEXT.viewer._network === _network
-	lazy private val isFriend: Formula =
+	private val isFriend: Formula =
 		isFriends(CONTEXT.viewer.username)
-	lazy private val friendOfFriend: Formula = false
+	private val friendOfFriend: Formula =
+		assembleFriendFriendList().has(CONTEXT.viewer.username)
 	//	!(friends.intersect(CONTEXT.viewer.followers).isEmpty)
 
 	/* Policies */
@@ -62,10 +63,21 @@ case class User(
 	def showFriends(ctxt: SocialNetContext): List[Username] =
 		(getFriends()).map((friend: Symbolic) => concretize(ctxt, friend).asInstanceOf[Username])
 	
+	def getFriendsBackend(): List[Username] = friends
+	
 	def isFriends(user: User): Boolean = isFriends(user.username)
 	def isFriends(username: Username): Boolean = !(friends.find((t: Username) => t == username).isEmpty)
-	def isFriends(username: Symbolic): Formula = isFriends(SocialNetBackend.getUsername(username))
+	
+	def isFriends(username: Symbolic): Formula = friends.has(username)
+	
 	def hasFriend(usernames: List[Username]): Boolean = !(friends.intersect(usernames).isEmpty)
+	def assembleFriendFriendList() : List[Username] = {
+		var extended: List[Username] = List[Username]()
+		for (f: Username <- friends) {
+			extended = SocialNetBackend.getUser(f.username).username :: extended
+		}
+		extended
+	}
 	
 	def post(msg: String) = {
 		posts = Update(Message(msg), this) :: posts
