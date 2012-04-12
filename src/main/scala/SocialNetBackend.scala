@@ -34,7 +34,7 @@ class SocialNetBackend extends JeevesLib {
 		users(u2).addFriend(users(u1))
 	}
 	
-	def +=(user: user) = addUser(user)
+	def +=(user: User) = addUser(user)
 }
 
 object SocialNetBackend extends SocialNetBackend()

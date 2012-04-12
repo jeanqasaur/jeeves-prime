@@ -26,7 +26,7 @@ object GraphLoader {
 	}
 	
 	def createBackend(path: String): SocialNetBackend = {
-		var backend: SocialNetBackend = SocialNetBackend()
+		var backend: SocialNetBackend = new SocialNetBackend()
 		var graph = loadGraph(path)
 		makeNetwork(graph, backend)
 		backend

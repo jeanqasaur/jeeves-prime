@@ -1,20 +1,36 @@
 package cap.primes
 
-trait Test {
-	def run(network: SocialNetBackend): Unit
+import java.io._
+import java.net._
+
+trait Test extends Runnable {
+	def setBackend(backend: SocialNetBackend): Unit
+}
+
+class FileClassLoader(urls: Array[URL], parent: ClassLoader) extends URLClassLoader(urls, parent) {
+	override def addURL(url: URL) = {
+		super.addURL(url)
+	}
 }
 
 class TestDaemon {
-	var classLoader = null
-	var backend = null
-	
-	private def initClassLoader(testFile: String) = {
-		classLoader = new java.net.URLClassLoader(
-			Array(new File(testFile).toURI.toURL),
+	var classLoader: FileClassLoader = null
+	var backend: SocialNetBackend = null
+
+	private def initClassLoader() = {
+		classLoader = new FileClassLoader(
+			Array[URL](),
 			this.getClass.getClassLoader
 		)
 	}
 	
+	private def initClassLoader(testFile: String) = {
+		classLoader = new FileClassLoader(
+			Array(new File(testFile).toURI.toURL),
+			this.getClass.getClassLoader
+		)
+	}
+
 	def runTest[T <: AnyRef](testFile: String, clazzName: String) = {
 		if(classLoader == null) {
 			initClassLoader(testFile)
@@ -26,17 +42,20 @@ class TestDaemon {
 		try {
 			var clazz = classLoader.loadClass(clazzName)
 			var testRunner = clazz.newInstance.asInstanceOf[Test]
-			testRunner.run(backend)
+			testRunner.setBackend(backend)
+			var thread = new Thread(testRunner)
+			thread.run
 		} catch {
 			case e: java.lang.ClassNotFoundException => {
 				printf("Test failed, %s not found.", clazzName)
 			}
 		}
 	}
+	
 	def init(graphDef: String) = {
-		initClassLoader(testFile)
+		initClassLoader()
 		if(graphDef != null) {
-			
+			GraphLoader.createBackend(graphDef)
 		}
 	}
 }
