@@ -31,7 +31,7 @@ case class User(
 		CONTEXT.viewer.username === username
 	private val sameNetwork: Formula =
 		CONTEXT.viewer._network === _network
-	private val isFriend: Formula =
+	private def isFriend: Formula =
 		isFriends(CONTEXT.viewer.username)
 	private val friendOfFriend: Formula =
 		assembleFriendFriendList().has(CONTEXT.viewer.username)

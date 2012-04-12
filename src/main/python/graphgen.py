@@ -1,6 +1,6 @@
 import networkx as nx
 
-f = open("..\\scala\\socialist.map", "w")
+f = open("../scala/socialist.map", "w")
 G = nx.newman_watts_strogatz_graph(100000, 75, .25)
 ec = 0
 for edge in G.edges():
