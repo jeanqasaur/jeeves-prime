@@ -1,11 +1,15 @@
 package test.cap.primes
 
 import cap.primes._
+import cap.scalasmt._
+import java.io.PrintStream
 
 import org.scalatest.FunSuite
 import org.scalatest.Assertions.{expect}
 
 class TestUpdate extends FunSuite {
+	Debug.DEBUG = true
+	Console.setErr(new PrintStream("t_update.log"))
 	System.setProperty("smt.home", "C:\\Program Files (x86)\\Microsoft Research\\Z3\\bin\\z3")
 	/*
 	test ("[test name]") {
@@ -30,24 +34,29 @@ class TestUpdate extends FunSuite {
 			post.showMessage(SocialNetContext(SocialNetBackend.get("User1")))
 		}
 	}
+	
 	test("Update - Friends") {
 		expect("msg") {
 			post.showMessage(SocialNetContext(SocialNetBackend.get("User2")))
 		}
 	}
+	
 	test("Update - Not Friends") {
 		expect("Unauthorized") {
 			post.showMessage(SocialNetContext(SocialNetBackend.get("User3")))
 		}
 	}
+	
 	test("Update - Tagged, Not Friends") {
 		expect("msg") {
 			post.showMessage(SocialNetContext(SocialNetBackend.get("User4")))
 		}
 	}
+	
 	test("Update - Not Tagged, Friends") {
 		expect("msg") {
 			post.showMessage(SocialNetContext(SocialNetBackend.get("User5")))
 		}
 	}
+	Console.err.flush()
 }
