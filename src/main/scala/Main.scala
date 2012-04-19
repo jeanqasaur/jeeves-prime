@@ -1,7 +1,7 @@
 package cap.primes
 
-object Main extends Application {
-	var daemon: Server = Server()
+object Main extends App {
+	var daemon: Server = new Server()
 	daemon.init("socialist.map")
-	server.run()
+	daemon.run()
 }

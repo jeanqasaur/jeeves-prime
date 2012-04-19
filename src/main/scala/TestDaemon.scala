@@ -4,7 +4,32 @@ import java.io._
 import java.net._
 
 trait Test extends Runnable {
-	def setBackend(backend: SocialNetBackend): Unit
+	private var startTime: Long = 0
+	private var endTime: Long = 0
+	protected var backend: SocialNetBackend = null
+	
+	def setBackend(backend: SocialNetBackend): Unit = {
+		this.backend = backend
+	}
+	
+	/**
+	 * Mark start time
+	 */
+	def mStart = {
+		startTime = System.nanoTime
+	}
+	
+	/**
+	 * Mark end time
+	 */
+	def mEnd = {
+		endTime = System.nanoTime
+	}
+	
+	/**
+	 * Get running time
+	 */
+	def runTime: Long = endTime - startTime
 }
 
 class FileClassLoader(urls: Array[URL], parent: ClassLoader) extends URLClassLoader(urls, parent) {
@@ -44,7 +69,6 @@ class TestDaemon {
 			var testRunner = clazz.newInstance.asInstanceOf[Test]
 			testRunner.setBackend(backend)
 			var thread = new Thread(testRunner)
-			thread.run
 		} catch {
 			case e: java.lang.ClassNotFoundException => {
 				printf("Test failed, %s not found.", clazzName)
