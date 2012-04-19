@@ -6,7 +6,7 @@ import org.scalatest.FunSuite
 import org.scalatest.Assertions.{expect}
 
 class TestUpdate extends FunSuite {
-	System.setProperty("smt.home", "C:\\Program Files (x86)\\Microsoft Research\\Z3-2.18\\bin\\z3")
+	System.setProperty("smt.home", "C:\\Program Files (x86)\\Microsoft Research\\Z3\\bin\\z3")
 	/*
 	test ("[test name]") {
 		expect([value you expect]) {
