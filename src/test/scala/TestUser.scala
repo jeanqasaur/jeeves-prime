@@ -1,12 +1,16 @@
 package test.cap.primes
 
 import cap.primes._
+import cap.scalasmt._
+import java.io.PrintStream
 
 import org.scalatest.FunSuite
 import org.scalatest.Assertions.{expect}
 
 class TestUser extends FunSuite {
+	Debug.DEBUG = true
 	System.setProperty("smt.home", "C:\\Program Files (x86)\\Microsoft Research\\Z3\\bin\\z3")
+	Console.setErr(new PrintStream("t_user.log"))
 	/*
 	test ("[test name]") {
 		expect([value you expect]) {
