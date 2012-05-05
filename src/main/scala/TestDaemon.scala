@@ -79,7 +79,6 @@ class TestDaemon {
 			var clazz = classLoader.loadClass(clazzName)
 			var testRunner = clazz.newInstance.asInstanceOf[Test]
 			testRunner.setBackend(backend)
-			Console.out.println(backend.getNumUsers)
 			testRunner.out = new PrintStream(Util.logName(clazzName))
 			Console.setErr(new Logger(Util.debugLogName(clazzName)))
 			var thread = new Thread(testRunner)
