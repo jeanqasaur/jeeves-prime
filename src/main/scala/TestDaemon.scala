@@ -1,14 +1,15 @@
 package cap.primes
 
-import java.io._
+import java.io.PrintStream
+import java.io.File
 import java.net._
 import java.util.Calendar
+import java.lang.Class
 
 object Util {
 	var c: Calendar = Calendar.getInstance
 	private def _logName(fun: String): String = {
-		fun + c.get(Calendar.YEAR) + c.get(Calendar.MONTH) + c.get
-		(Calendar.DAY_OF_MONTH)
+		fun + c.get(Calendar.YEAR) + c.get(Calendar.MONTH) + c.get(Calendar.DAY_OF_MONTH)
 	}
 	def logName(fun: String): String = _logName(fun) + ".log"
 	def debugLogName(fun: String): String = _logName(fun) + ".debug.log"
@@ -78,6 +79,7 @@ class TestDaemon {
 			var clazz = classLoader.loadClass(clazzName)
 			var testRunner = clazz.newInstance.asInstanceOf[Test]
 			testRunner.setBackend(backend)
+			Console.out.println(backend.getNumUsers)
 			testRunner.out = new PrintStream(Util.logName(clazzName))
 			Console.setErr(new Logger(Util.debugLogName(clazzName)))
 			var thread = new Thread(testRunner)
@@ -93,7 +95,7 @@ class TestDaemon {
 	def init(graphDef: String) = {
 		initClassLoader()
 		if(graphDef != null) {
-			GraphLoader.createBackend(graphDef)
+			backend = GraphLoader.createBackend(graphDef)
 		}
 	}
 }

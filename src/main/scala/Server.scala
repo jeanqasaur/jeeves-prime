@@ -1,6 +1,9 @@
 package cap.primes
 
-import java.io._
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.BufferedReader
+import java.io.IOException
 import java.net._
 
 object Conf {
@@ -15,11 +18,14 @@ class Server {
 	var td: TestDaemon = null
 
 	def init(graphDef: String) = {
+		Console.out.println("Loading config...")
 		td = new TestDaemon()
 		td.init(graphDef)
+		Console.out.println("...config loaded.")
 	}
 	
 	def run() = {
+		Console.out.print("Server started...")
 		try {
 			while(true) {
 				var s = ss.accept

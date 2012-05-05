@@ -17,7 +17,7 @@ object Default {
 case class User(
 	val username: Username, private val _name: Name, val _network: Network) extends JeevesRecord {
 
-	this(username: String, name: String, network: String) = this(Username(username), Name(name), Network(network))
+	def this(username: String, name: String, network: String) = this(Username(username), Name(name), Network(network))
 	
 	/* Variables */
 	private val _friendL = mkLevel()
