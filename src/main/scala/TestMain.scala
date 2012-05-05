@@ -1,28 +1,40 @@
 package cap.primes.test
 import cap.primes._
+import java.io.PrintStream
 
 class TestMain extends Test {
-	def run: Unit = {
-		super.mStart
-		var tStart: Long = 0
-		var tEnd: Long = 0
-		{ // Test 1: ....
-			out.println("Test 1: Username [O(1)]")
-			tStart = System.nanoTime
-			SocialNetBackend(1).showUsername(Default.defaultContext)
-			tEnd = System.nanoTime
-			out.println("Time: " + (tEnd - tStart).toString)
-		}
+	var out: PrintStream = null
 
-		SocialNetBackend += new User("bob", "Bob", "default")
-		SocialNetBackend.addLink("1", "bob")
-		var newFriend = SocialNetBackend.get("1").getFriendsBackend()(0)
-		{ // Test 2: ....
-			out.println("Test 1: Friend Of Friend [O(n^2)]")
-			tStart = System.nanoTime
-			SocialNetBackend(newFriend).showTest(Default.defaultContext)
-			tEnd = System.nanoTime
-			out.println("Time: " + (tEnd - tStart).toString)
+	def testUser(i: Int): (Long, Long, Long) = {
+		// Test 1: Username [O(1)]
+		out.println("Test 1: Username [O(1)]")
+		var tStart0 = System.nanoTime
+		backend(i).showUsername(Default.defaultContext)
+		var tEnd0 = System.nanoTime
+		// Test 2: Fried [O(n)]
+		out.println("Test 2: Friend [O(n)]")
+		var newFriend = backend(backend(i).getFriendsBackend()(0))
+		var tStart1 = System.nanoTime
+		backend(i).showName(new SocialNetContext(newFriend))
+		var tEnd1 = System.nanoTime
+		// Test 3: Friend Of Friend [O(n^2)]
+		out.println("Test 3: Friend Of Friend [O(n^2)]")
+		newFriend = backend(newFriend.getFriendsBackend()(0))
+		var tStart2 = System.nanoTime
+		backend(i).showTest(new SocialNetContext(newFriend))
+		var tEnd2 = System.nanoTime
+		(tEnd0 - tStart0, tEnd1 - tStart1, tEnd2 - tStart2)
+	}
+	
+	def run: Unit = {
+		if(out == null) out = Console.out
+		super.mStart
+		var taken: List[Int] = List[Int]()
+		for(it <- 0 to 100) {
+			var index = (Math.random * 100).intValue
+			while(taken contains index) { index = (Math.random * 100).intValue }
+			var tr = testUser(index)
+			out.println("Test Results: Times: " + tr._1 + "," + tr._2 + "," + tr._3)
 		}
 		super.mEnd
 	}

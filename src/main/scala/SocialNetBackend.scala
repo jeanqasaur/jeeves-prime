@@ -36,9 +36,17 @@ class SocialNetBackend extends JeevesLib {
 	
 	def +=(user: User) = addUser(user)
 
+	def update(_users: List[User], users: Map[String, User]): Unit = {
+		this.users = users
+		this._users = _users
+	}
+	def update(backend: SocialNetBackend): Unit = update(backend._users, backend.users)
+
 	def apply(username: String): User = getUser(username)
 	def apply(username: Username): User = getUser(username.username)
-	def apply(userID: Int): User = _users[userID]
+	def apply(userID: Int): User = _users(userID)
+	
+	def getNumUsers: Int = _users.length
 }
 
 object SocialNetBackend extends SocialNetBackend()
