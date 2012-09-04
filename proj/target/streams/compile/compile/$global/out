@@ -1,0 +1,42 @@
+[debug] 
+[debug] Initial source changes: 
+[debug] 	removed:Set()
+[debug] 	added: Set(C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\SocialNetContext.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\User.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\Logger.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\Server.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\TestDaemon.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\Main.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\TestMain.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\SocialNetBackend.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\Update.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\GraphLoader.scala)
+[debug] 	modified: Set()
+[debug] Removed products: Set()
+[debug] Modified external sources: Set()
+[debug] Modified binary dependencies: Set()
+[debug] Initial directly invalidated sources: Set(C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\SocialNetContext.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\User.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\Logger.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\Server.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\TestDaemon.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\Main.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\TestMain.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\SocialNetBackend.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\Update.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\GraphLoader.scala)
+[debug] 
+[debug] Sources indirectly invalidated by:
+[debug] 	product: Set()
+[debug] 	binary dep: Set()
+[debug] 	external source: Set()
+[debug] Initially invalidated: Set(C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\SocialNetContext.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\User.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\Logger.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\Server.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\TestDaemon.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\Main.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\TestMain.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\SocialNetBackend.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\Update.scala, C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\GraphLoader.scala)
+[info] Compiling 10 Scala sources to C:\Users\pat\Desktop\d\social_net\proj\target\scala-2.9.2\classes...
+[debug] Running cached compiler 297425c3, interfacing (CompilerInterface) with Scala compiler version 2.9.2
+[debug] Calling Scala compiler with arguments  (CompilerInterface):
+[debug] 	-d
+[debug] 	C:\Users\pat\Desktop\d\social_net\proj\target\scala-2.9.2\classes
+[debug] 	-bootclasspath
+[debug] 	C:\Program Files\Java\jre7\lib\resources.jar;C:\Program Files\Java\jre7\lib\rt.jar;C:\Program Files\Java\jre7\lib\sunrsasign.jar;C:\Program Files\Java\jre7\lib\jsse.jar;C:\Program Files\Java\jre7\lib\jce.jar;C:\Program Files\Java\jre7\lib\charsets.jar;C:\Program Files\Java\jre7\lib\jfr.jar;C:\Program Files\Java\jre7\classes;C:\Users\pat\.sbt\boot\scala-2.9.2\lib\scala-library.jar
+[debug] 	-classpath
+[debug] 	C:\Users\pat\Desktop\d\social_net\proj\target\scala-2.9.2\classes;C:\Users\pat\Desktop\d\social_net\proj\lib\scalasmt_2.9.2-1.0.jar
+[error] C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\Update.scala:15: type mismatch;
+[error]  found   : cap.scalasmt.Or
+[error]  required: Boolean
+[error] 	def canSee(uname: Username): Boolean = authorized == null || authorized.has(uname) || uname == author.username
+[error] 	                                                                                   ^
+[error] C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\User.scala:74: type mismatch;
+[error]  found   : List[cap.primes.Username]
+[error]  required: String
+[error] 			groups += List[Username]()
+[error] 			                        ^
+[error] C:\Users\pat\Desktop\d\social_net\proj\src\main\scala\User.scala:77: type mismatch;
+[error]  found   : cap.primes.Username
+[error]  required: String
+[error] 			groups((Math.random * num_groups).toInt) += friends(i)
+[error] 			                                                   ^
+[error] three errors found
+[debug] Compilation failed (CompilerInterface)
+[error] (compile:compile) Compilation failed
