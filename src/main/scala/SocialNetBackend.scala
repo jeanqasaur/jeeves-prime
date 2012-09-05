@@ -19,10 +19,6 @@ class SocialNetBackend extends JeevesLib {
 	def getUser(username: String): User = {
 		users.getOrElse(username, Default.defaultFriend)
 	}
-
-	def searchByNetwork(network: String): List[User] = {
-		_users.filter(_.getNetwork() == Network(network))
-	}
 	
 	def addUser(user: User) = {
 		users += user.username.username -> user

@@ -16,10 +16,10 @@ object GraphLoader {
 		var network: Map[Int, User] = Map[Int, User]()
 		for (x: (Int, Int) <- basicGraph) {
 			if (!backend.hasUser(x._1.toString)) {
-				backend += User(Username(x._1.toString), Name(x._1.toString), Network("Common"))
+				backend += new User(x._1.toString, x._1.toString)
 			}
 			if (!backend.hasUser(x._2.toString)) {
-				backend += User(Username(x._2.toString), Name(x._2.toString), Network("Common"))
+				backend += new User(x._2.toString, x._2.toString)
 			}
 			backend.addLink(x._1.toString, x._2.toString)
 		}
