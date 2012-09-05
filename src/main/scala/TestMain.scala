@@ -20,13 +20,23 @@ class TestMain extends Test {
 	}
 
 	def browseProfiles(i: Int): Long = {
-		0L
+		var taken: List[Int] = List[Int]()
+		var friends = backend(i).getFriendsBackend()
+		var total: Long = 0L
+		for(it <- 0 to 50) {
+			var index = (Math.random * friends.length).intValue
+			while(taken contains index) { index = (Math.random * friends.length).intValue }
+			var tr = browseProfile(backend(index).username, backend(i).username)
+			total += tr
+		}
+		total
 	}
 
 	def browseProfile(uname: Username, accessor: Username): Long = {
 		var tStart = System.nanoTime
 		var pn = 0
 		var pv = 0
+		out.println("I got here")
 		while(pv < 15 && pn < backend(uname).getNumPosts()) {
 			var post = backend(uname).getPost(pn)
 			if(post.canSee(backend(accessor).username)) {
@@ -34,9 +44,13 @@ class TestMain extends Test {
 				pv += 1
 			}
 		}
+		out.println("I got here")
 		backend(uname).showFriends(accessor)
+		out.println("I got here")
 		backend(uname).showName(accessor)
+		out.println("I got here")
 		backend(uname).showUsername(accessor)
+		out.println("I got here")
 		System.nanoTime - tStart
 	}
 	
@@ -64,7 +78,7 @@ class TestMain extends Test {
 		var taken: List[Int] = List[Int]()
 		var t1: Long = 0
 		var t2: Long = 0
-		for(it <- 0 to 500) {
+		for(it <- 0 to 5000) {
 			var index = (Math.random * 100).intValue
 			while(taken contains index) { index = (Math.random * 100).intValue }
 			var tr = testUser(index)
