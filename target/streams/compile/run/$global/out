@@ -1,0 +1,14 @@
+[info] Running cap.primes.Main 
+[debug] Starting sandboxed run...
+[debug] Waiting for threads to exit or System.exit to be called.
+[debug]   Classpath:
+[debug] 	C:\Users\pat\Desktop\jeeves-prime\target\scala-2.9.2\classes
+[debug] 	C:\Users\pat\Desktop\jeeves-prime\lib\sbt-launch.jar
+[debug] 	C:\Users\pat\Desktop\jeeves-prime\lib\scalasmt_2.9.2-1.0.jar
+[debug] 	C:\Users\pat\Desktop\jeeves-prime\lib\scalatest-1.7.1.jar
+[debug] 	C:\Users\pat\.sbt\boot\scala-2.9.2\lib\scala-library.jar
+[debug] Waiting for thread run-main to exit
+[debug] 	Thread run-main exited.
+[debug] Interrupting remaining threads (should be all daemons).
+[debug] Sandboxed run complete..
+[debug] Exited with code 0
