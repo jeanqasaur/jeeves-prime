@@ -36,7 +36,6 @@ class TestMain extends Test {
 		var tStart = System.nanoTime
 		var pn = 0
 		var pv = 0
-		out.println("I got here")
 		while(pv < 15 && pn < backend(uname).getNumPosts()) {
 			var post = backend(uname).getPost(pn)
 			if(post.canSee(backend(accessor).username)) {
@@ -44,13 +43,9 @@ class TestMain extends Test {
 				pv += 1
 			}
 		}
-		out.println("I got here")
 		backend(uname).showFriends(accessor)
-		out.println("I got here")
 		backend(uname).showName(accessor)
-		out.println("I got here")
 		backend(uname).showUsername(accessor)
-		out.println("I got here")
 		System.nanoTime - tStart
 	}
 	
