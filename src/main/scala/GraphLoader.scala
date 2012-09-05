@@ -17,9 +17,11 @@ object GraphLoader {
 		for (x: (Int, Int) <- basicGraph) {
 			if (!backend.hasUser(x._1.toString)) {
 				backend += new User(x._1.toString, x._1.toString)
+				backend(x._1.toString).formGroups()
 			}
 			if (!backend.hasUser(x._2.toString)) {
 				backend += new User(x._2.toString, x._2.toString)
+				backend(x._2.toString).formGroups()
 			}
 			backend.addLink(x._1.toString, x._2.toString)
 		}
