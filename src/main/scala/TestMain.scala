@@ -73,7 +73,7 @@ class TestMain extends Test {
 		var taken: List[Int] = List[Int]()
 		var t1: Long = 0
 		var t2: Long = 0
-		for(it <- 0 to 5000) {
+		for(it <- 0 to 5) {
 			var index = (Math.random * 100).intValue
 			while(taken contains index) { index = (Math.random * 100).intValue }
 			var tr = testUser(index)
