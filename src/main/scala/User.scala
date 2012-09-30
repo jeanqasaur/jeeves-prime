@@ -50,7 +50,7 @@ case class User(
 		(concretize(ctxt, getName())).asInstanceOf[Name].name
 
 	def getFriends(): List[Sensitive] = {
-		friends.toList.map((friend: Username) => mkSensitive(_friendL, friend, Default.defaultFriend))
+		friends.toList.map((friend: Username) => mkSensitive(_friendL, friend, Default.defaultFriend.username))
 	}
 	def showFriends(ctxt: Sensitive): List[Username] =
 		getFriends().map((friend: Sensitive) => concretize(ctxt, friend).asInstanceOf[Username])
@@ -60,7 +60,10 @@ case class User(
 	def isFriends(user: User): Boolean = isFriends(user.username)
 	def isFriends(username: Username): Boolean = !(friends.find((t: Username) => t == username).isEmpty)
 	
-	def isFriends(username: Sensitive): Formula = friends.has(username)
+	def isFriends(username: Sensitive): Formula = {
+		// println(friends.length)
+		friends.has(username)
+	}
 	
 	def post(msg: String) = {
 		posts = Update(Message(msg), this, getRandomSubset()) :: posts

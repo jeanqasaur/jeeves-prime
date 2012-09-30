@@ -22,3 +22,14 @@ compile
 run
 compile
 run
+clean
+compile
+run
+last compile:run
+run
+last compile:run
+run
+4
+run
+last compile:run
+run
