@@ -5,6 +5,7 @@ import java.io.File
 import java.net._
 import java.util.Calendar
 import java.lang.Class
+import cap.scalasmt.Debug
 
 object Util {
 	var c: Calendar = Calendar.getInstance
@@ -96,5 +97,6 @@ class TestDaemon {
 		if(graphDef != null) {
 			backend = GraphLoader.createBackend(graphDef)
 		}
+		Debug.DEBUG = true
 	}
 }

@@ -27,6 +27,7 @@ class TestMain extends Test {
 			var index = (Math.random * friends.length).intValue
 			while(taken contains index) { index = (Math.random * friends.length).intValue }
 			var tr = browseProfile(backend(index).username, backend(i).username)
+			out.println(">>Browsed Profile, took " + tr + "ns.")
 			total += tr
 		}
 		total
@@ -36,6 +37,7 @@ class TestMain extends Test {
 		var tStart = System.nanoTime
 		var pn = 0
 		var pv = 0
+		var t0 = System.nanoTime
 		while(pv < 15 && pn < backend(uname).getNumPosts()) {
 			var post = backend(uname).getPost(pn)
 			if(post.canSee(backend(accessor).username)) {
@@ -43,9 +45,16 @@ class TestMain extends Test {
 				pv += 1
 			}
 		}
+		out.println(">>>>Posts: " + (System.nanoTime - t0) + "ns")
+		t0 = System.nanoTime
 		backend(uname).showFriends(accessor)
+		out.println(">>>>Show friends: " + (System.nanoTime - t0) + "ns")
+		t0 = System.nanoTime
 		backend(uname).showName(accessor)
+		out.println(">>>>Show name: " + (System.nanoTime - t0) + "ns")
+		t0 = System.nanoTime
 		backend(uname).showUsername(accessor)
+		out.println(">>>>Show username: " + (System.nanoTime - t0) + "ns")
 		System.nanoTime - tStart
 	}
 	
@@ -73,18 +82,17 @@ class TestMain extends Test {
 		var taken: List[Int] = List[Int]()
 		var t1: Long = 0
 		var t2: Long = 0
-		for(it <- 0 to 5) {
+		for(it <- 1 to 20) {
 			var index = (Math.random * 100).intValue
 			while(taken contains index) { index = (Math.random * 100).intValue }
+			taken = index :: taken
 			var tr = testUser(index)
 			out.println("Test Results: Times: " + tr._1 + "," + tr._2)
 			t1 += (tr._1 / 1000000L)
 			t2 += (tr._2 / 1000000L)
 		}
 		super.mEnd
-		t1 /= 100
-		t2 /= 100
-		out.println("End Results: Times: " + t1 + "," + t2)
-		out.println("Total Time: " + super.runTime)
+		out.println("End Results: Times (avg.): " + t1 / 20 + "," + t2 / 20 + " (Millis)")
+		out.println("Total Time: " + super.runTime / 1000000L + " (Millis)")
 	}
 }

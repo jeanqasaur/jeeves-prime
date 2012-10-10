@@ -1,0 +1,38 @@
+User: 10
+Browsing Profiles
+Time: 124530250062ns
+Checking Updates (Viewing 15 'latest' updates)
+Time: 11196ns
+Test Results: Times: 124530250062,11196
+User: 70
+Browsing Profiles
+Time: 127623389649ns
+Checking Updates (Viewing 15 'latest' updates)
+Time: 8864ns
+Test Results: Times: 127623389649,8864
+User: 26
+Browsing Profiles
+Time: 120570501373ns
+Checking Updates (Viewing 15 'latest' updates)
+Time: 6531ns
+Test Results: Times: 120570501373,6531
+User: 71
+Browsing Profiles
+Time: 119101361615ns
+Checking Updates (Viewing 15 'latest' updates)
+Time: 6065ns
+Test Results: Times: 119101361615,6065
+User: 19
+Browsing Profiles
+Time: 120403322958ns
+Checking Updates (Viewing 15 'latest' updates)
+Time: 5598ns
+Test Results: Times: 120403322958,5598
+User: 97
+Browsing Profiles
+Time: 120516611060ns
+Checking Updates (Viewing 15 'latest' updates)
+Time: 6065ns
+Test Results: Times: 120516611060,6065
+End Results: Times: 7327,0
+Total Time: 732748468954
